@@ -1,0 +1,26 @@
+
+
+service: ProducerSessionArtifact # NOTE: update this with your service name
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  region: us-east-2
+  stage: dev
+  role: arn:aws:iam::801436204261:role/lambda-vpc-execution-role
+  vpc:
+    securityGroupIds:
+      - sg-0ec93a415973b82fe
+    subnetIds:
+      - subnet-0c6735090c61c90d1
+      - subnet-0e807dfda3dec2126
+
+
+functions:
+  app:
+    handler: handler.node
+    events:
+      - http: ANY /
+      - http: ANY /{proxy+}
+
+
